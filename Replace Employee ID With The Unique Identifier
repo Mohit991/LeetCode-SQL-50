@@ -1,0 +1,2 @@
+select EU.unique_id, E.name from EmployeeUNI EU
+right outer join Employees E on E.id = EU.id
