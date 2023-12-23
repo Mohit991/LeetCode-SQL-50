@@ -1,0 +1,8 @@
+We will pick all the customer ids from customer tables grouping it by customer id. 
+We will add a having clause to only pick those ids where the count of unique product keys for the customer id is equal to the count of product key from product table. 
+
+```
+select customer_id from customer
+group by customer_id
+having count(distinct(product_key)) = (select count(product_key) from product)
+```
