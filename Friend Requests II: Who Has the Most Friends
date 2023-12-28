@@ -1,0 +1,33 @@
+# select A.id, sum(A.friends_count) as num from 
+# (select requester_id as id, count(requester_id) as friends_count from RequestAccepted 
+# group by requester_id 
+# union all
+# select accepter_id as id, count(accepter_id) as friends_count from RequestAccepted 
+# group by accepter_id) A
+# group by A.id
+# order by num desc
+# limit 1
+
+# #######################################################
+
+# select temp.id, count(*) as num from (
+#     select requester_id as id from RequestAccepted
+#     union all
+#     select accepter_id as id from RequestAccepted
+# ) temp 
+# group by temp.id
+# order  by num desc
+# limit 1
+
+#######################################################
+
+with base as (
+                select requester_id as id from RequestAccepted
+                union all
+                select accepter_id as id from RequestAccepted
+             )
+
+select id, count(*) as num from base 
+group by id
+order  by num desc
+limit 1
