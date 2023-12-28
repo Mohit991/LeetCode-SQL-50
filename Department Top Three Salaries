@@ -1,0 +1,22 @@
+# The from Employee e1 join Department d on e1.DepartmentId = d.Id clause joins the Employee table and the Department table using the departmentId as the common key. This allows us to access both employee and department information in the same query.
+
+# The where 3 > (select count(distinct (e2.Salary)) from Employee e2 where e2.Salary > e1.Salary and e1.DepartmentId = e2.DepartmentId) clause uses a subquery to find the employees who earn among the top three salaries in their department.
+
+# The subquery counts the distinct salaries in the Employee table that are higher than the current employee's salary and belong to the same department.
+# If there are less than 3 distinct salaries that are higher than the current employee's salary in the same department, it means the current employee is among the top three earners in the department.
+# The main select statement then fetches the department name (d.name), employee name (e1.name), and the salary (e1.salary) for those employees.
+
+select dept.name as Department, emp.name as Employee, emp.salary as Salary from 
+Employee emp inner join Department dept 
+on emp.departmentId = dept.id
+where 3 > (select count(distinct emp1.salary) from employee emp1
+            where emp.salary < emp1.salary and emp1.departmentId = dept.id)
+
+
+
+
+
+
+
+
+
